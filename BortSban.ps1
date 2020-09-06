@@ -1,144 +1,7 @@
 function Invk-BortSban
 {
 <#
-.SYNOPSIS
 
-Simple BortSban module
-
-PowerSploit Function: Invk-BortSban  
-Author: Rich Lundeen (http://webstersProdigy.net)  
-License: BSD 3-Clause  
-Required Dependencies: None  
-Optional Dependencies: None  
-
-.DESCRIPTION
-
-Does a simple port scan using regular sockets, based (pretty) loosely on nmap
-
-.PARAMETER Hosts
-
-Include these comma seperated hosts (supports IPv4 CIDR notation) or pipe them in
-
-.PARAMETER HostFile
-
-Input hosts from file rather than commandline
-
-.PARAMETER ExcludeHosts
-
-Exclude these comma seperated hosts
-
-.PARAMETER Ports
-
-Include these comma seperated ports (can also be a range like 80-90)
-
-.PARAMETER PortFile
-
-Input ports from a file
-
-.PARAMETER TopPorts
-
-Include the x top ports - only goes to 1000, default is top 50
-
-.PARAMETER ExcludedPorts
-
-Exclude these comma seperated ports
-
-.PARAMETER SkipDiscovery
-
-Treat all hosts as online, skip host discovery
-
-.PARAMETER PingOnly
-
-Ping scan only (disable port scan)
-
-.PARAMETER DiscoveryPorts
-
-Comma separated ports used for host discovery. -1 is a ping
-
-.PARAMETER Threads
-
-number of max threads for the thread pool (per host)
-
-.PARAMETER nHosts
-
-number of hosts to concurrently scan
-
-.PARAMETER Timeout
-
-Timeout time on a connection in miliseconds before port is declared filtered
-
-.PARAMETER SleepTimer
-
-Wait before thread checking, in miliseconds
-
-.PARAMETER SyncFreq
-
-How often (in terms of hosts) to sync threads and flush output
-
-.PARAMETER T
-
-[0-5] shortcut performance options. Default is 3. higher is more aggressive. Sets (nhosts, threads,timeout)
-    5 {$nHosts=30;  $Threads = 1000; $Timeout = 750  }
-    4 {$nHosts=25;  $Threads = 1000; $Timeout = 1200 }
-    3 {$nHosts=20;  $Threads = 100;  $Timeout = 2500 }
-    2 {$nHosts=15;  $Threads = 32;   $Timeout = 3000 }
-    1 {$nHosts=10;  $Threads = 32;   $Timeout = 5000 }
-
-.PARAMETER GrepOut
-
-Greppable output file
-
-.PARAMETER XmlOut
-
-output XML file
-
-.PARAMETER ReadableOut
-
-output file in 'readable' format
-
-.PARAMETER AllformatsOut
-
-output in readable (.nmap), xml (.xml), and greppable (.gnmap) formats
-
-.PARAMETER noProgressMeter
-
-Suppresses the progress meter
-
-.PARAMETER quiet
-
-supresses returned output and don't store hosts in memory - useful for very large scans
-
-.PARAMETER ForceOverwrite
-
-Force Overwrite if output Files exist. Otherwise it throws exception
-
-.EXAMPLE
-
-Invk-BortSban -Hosts "webstersprodigy.net,google.com,microsoft.com" -TopPorts 50
-
-Description
------------
-Scans the top 50 ports for hosts found for webstersprodigy.net,google.com, and microsoft.com
-
-.EXAMPLE
-
-echo webstersprodigy.net | Invk-BortSban -oG test.gnmap -f -ports "80,443,8080"
-
-Description
------------
-Does a BortSban of "webstersprodigy.net", and writes a greppable output file
-
-.EXAMPLE
-
-Invk-BortSban -Hosts 192.168.1.1/24 -T 4 -TopPorts 25 -oA localnet
-
-Description
------------
-Scans the top 20 ports for hosts found in the 192.168.1.1/24 range, outputs all file formats
-
-.LINK
-
-http://webstersprodigy.net
 #>
 
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
@@ -294,7 +157,7 @@ http://webstersprodigy.net
                     [uint32]$startMask = ([System.math]::Pow(2, $maskPart)-1) * ([System.Math]::Pow(2,(32 - $maskPart)))
                     $startAddress = $startAddress -band $startMask
 
-                    #in powershell 2.0 there are 4 0 bytes padded, so the [0..3] is necessary
+                    
                     $startAddress = [System.BitConverter]::GetBytes($startaddress)[0..3]
                     [array]::Reverse($startaddress)
 
@@ -684,7 +547,7 @@ http://webstersprodigy.net
             }
         }
 
-        #function for Powershell v2.0 to work
+       
         function Convert-SwitchtoBool
         {
             Param (
@@ -704,10 +567,7 @@ http://webstersprodigy.net
             [bool] $quiet  = Convert-SwitchtoBool ($quiet)
             [bool] $ForceOverwrite  = Convert-SwitchtoBool ($ForceOverwrite)
 
-            #########
-            #parse arguments
-            #########
-
+          
             [Environment]::CurrentDirectory=(Get-Location -PSProvider FileSystem).ProviderPath
 
             if ($PsCmdlet.ParameterSetName -eq "cmdHosts")
