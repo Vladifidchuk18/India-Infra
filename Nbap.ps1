@@ -3,7 +3,7 @@
 
 #>
 
-#requires -version 2
+
 
 [CmdletBinding(SupportsShouldProcess=$True)]
 param (
@@ -71,7 +71,7 @@ BEGIN {
     } # END Fucntion Process-Input
 
     # Define main function
-    function Nbap-Scan {
+    function Nmap-Scan {
     
         BEGIN {
 
@@ -147,11 +147,11 @@ BEGIN {
             Write-Verbose "Processing completed"
         }
 
-    } # END Function Nbap-Scan
+    } # END Function Nmap-Scan
 
 }
 
-PROCESS {Nbap-Scan}
+PROCESS {Nmap-Scan}
 
 END {
 
