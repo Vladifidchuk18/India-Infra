@@ -1,0 +1,199 @@
+const {app, BrowserWindow, screen} = require('electron')
+const url = require('url')
+const path = require('path')
+const { ipcMain } = require('electron')
+
+let win;
+let screenWidth, screenHeight, minWidth = 10, minHeight = 10, windowPositionArr,
+  primaryXPosition = 0, primaryYPosition = 0, primaryWidth = 50, primaryHeight = 50, 
+  secondaryXPosition = 90, secondaryYPosition = 87, secondaryWidth = 10, secondaryHeight = 13;
+let flagArrayItemsNumber = false;
+
+app.on('ready', () => {
+  initParams();
+  createWindow();
+});
+
+function initParams() {
+  if (!process.env.npm_config_env) {
+    if (process.argv.length > 2) {
+      process.env.npm_config_siteUrl = process.argv[2];
+    }
+    if (process.argv.length > 3) {
+      process.env.npm_config_alwaysOnTop = process.argv[3];
+    }
+    if (process.argv.length > 4) {
+      process.env.npm_config_windowPosition = process.argv[4];
+    }
+    if (process.argv.length > 5) {
+      process.env.npm_config_minWidth = process.argv[5];
+    }
+    if (process.argv.length > 6) {
+      process.env.npm_config_minHeight = process.argv[6];
+    }
+    if (process.argv.length > 7) {
+      process.env.npm_config_appTitle = process.argv[7];
+    }
+  }
+
+  let display = screen.getPrimaryDisplay();
+  screenWidth = display.bounds.width;
+  screenHeight = display.bounds.height;
+}
+
+function createWindow() {
+  win = new BrowserWindow({
+    icon: path.join(__dirname, 'assets/img/Meuhedet-logo.png'),
+    minWidth: minWidth,
+    minHeight: minHeight,
+    minimizable: false,
+    frame: false,
+    webPreferences:{ 
+      nodeIntegration: true,
+      contextIsolation: false,
+      allowRunningInsecureContent: true,
+      webSecurity: false,
+      webviewTag: true
+    }
+  });
+
+  win.removeMenu();
+  //win.webContents.openDevTools();
+
+  if (process.env.npm_config_windowPosition && process.env.npm_config_windowPosition.length > 0) {
+    windowPositionArr = process.env.npm_config_windowPosition.split(',');
+    if (Array.isArray(windowPositionArr)) {
+      flagArrayItemsNumber = true;
+      windowPositionArr.forEach(function(item) {
+        if (isNaN(item)) {
+          flagArrayItemsNumber = false;
+        }
+      });
+    }
+    else {
+      flagArrayItemsNumber = false;
+    }
+  }
+
+  setWindowOnScreen('primary');
+
+  if (process.env.npm_config_minWidth && !isNaN(process.env.npm_config_minWidth) && process.env.npm_config_minHeight && !isNaN(process.env.npm_config_minHeight)) {
+    minWidth = Number(process.env.npm_config_minWidth);
+    minHeight = Number(process.env.npm_config_minHeight);
+    win.setMinimumSize(minWidth, minHeight);
+  }
+  
+  win.loadURL(url.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true
+  }));
+
+  if ((process.env.npm_config_alwaysOnTop) && (process.env.npm_config_alwaysOnTop == 'true')) {
+    win.setAlwaysOnTop(true, 'pop-up-menu');
+  }
+
+  win.on('maximize', () => {
+    win.webContents.send('maximize');
+  });
+
+  win.on('unmaximize', () => {
+    win.webContents.send('unmaximize');
+  });
+  
+  win.once('ready-to-show', () => {
+    win.show();
+    win.focus();
+  });
+}
+
+function setWindowOnScreen(windowType) {
+  switch (windowType) {
+    case 'primary':
+      if (process.env.npm_config_windowPosition && flagArrayItemsNumber) {
+        primaryXPosition = windowPositionArr[0];
+        primaryYPosition = windowPositionArr[1];
+        primaryWidth = windowPositionArr[2];
+        primaryHeight = windowPositionArr[3];
+      }
+
+      var primaryPositionValues = getScreenRatio(primaryXPosition, primaryYPosition);
+      win.setPosition(primaryPositionValues.x, primaryPositionValues.y); 
+
+      var primarySizeValues = getScreenRatio(primaryWidth, primaryHeight);
+      win.setSize(primarySizeValues.x, primarySizeValues.y);
+
+      if (!process.env.npm_config_windowPosition) {
+        win.center();
+      }
+
+      win.maximizable = true;
+
+      break;
+    case 'secondary':
+      if (process.env.npm_config_windowPosition && flagArrayItemsNumber) {
+        secondaryXPosition = windowPositionArr[4];
+        secondaryYPosition = windowPositionArr[5];
+        secondaryWidth = windowPositionArr[6];
+        secondaryHeight = windowPositionArr[7];
+      }
+
+      var secondaryPositionValues = getScreenRatio(secondaryXPosition, secondaryYPosition);
+      win.setPosition(secondaryPositionValues.x, secondaryPositionValues.y); 
+
+      var secondarySizeValues = getScreenRatio(secondaryWidth, secondaryHeight);
+      win.setSize(secondarySizeValues.x, secondarySizeValues.y);
+
+      win.maximizable = false;
+
+      break;
+    default:
+      if (process.env.npm_config_windowPosition && flagArrayItemsNumber) {
+        primaryXPosition = windowPositionArr[0];
+        primaryYPosition = windowPositionArr[1];
+        primaryWidth = windowPositionArr[2];
+        primaryHeight = windowPositionArr[3];
+      }
+
+      var primaryPositionValues = getScreenRatio(primaryXPosition, primaryYPosition);
+      win.setPosition(primaryPositionValues.x, primaryPositionValues.y); 
+
+      var primarySizeValues = getScreenRatio(primaryWidth, primaryHeight);
+      win.setSize(primarySizeValues.x, primarySizeValues.y);
+
+      if (!process.env.npm_config_windowPosition) {
+        win.center();
+      }
+
+      win.maximizable = true;
+
+      break;
+  }
+}
+
+function getScreenRatio(xRatio, yRatio) {
+  return {
+    x: Math.floor(screenWidth / 100 * xRatio),
+    y: Math.floor(screenHeight / 100 * yRatio),
+  };
+}
+
+ipcMain.on('closeApp', (event, arg) => {
+  win.close();
+});
+
+ipcMain.on('clickFullscreen', (event, arg) => {
+  win.maximize();
+});
+
+ipcMain.on('clickExitFullscreen', (event, arg) => {
+  win.unmaximize();
+});
+
+ipcMain.on('clickPrimary', (event, arg) => {
+  setWindowOnScreen('primary');
+});
+
+ipcMain.on('clickSecondary', (event, arg) => {
+  setWindowOnScreen('secondary');
+});
